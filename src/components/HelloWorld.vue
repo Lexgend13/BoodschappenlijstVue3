@@ -1,11 +1,13 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
+
+// TODO: ongebruikte bestanden verwijderen
 
 defineProps({
   msg: String,
-})
+});
 
-const count = ref(0)
+const count = ref(0);
 </script>
 
 <template>
