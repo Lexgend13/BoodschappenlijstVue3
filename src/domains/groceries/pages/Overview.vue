@@ -1,14 +1,35 @@
 <script setup>
   import { getAllGroceries, getGroceriesById, addGrocery } from '../../../store/Groceries.js';
-
+  import { tasks, people } from '../../../store/Groceries.js';
   import { computed, ref } from 'vue';  
   const products = ref(getAllGroceries.value);
-  console.log(products)
+  console.log(people)
+  // console.log(products)
   const total = computed(() => products.value.reduce((acc, item) => acc += item.quantity * item.price, 0))
-  console.log(total)
+  // console.log(total)
 
+  const newName = ref('');
+  const newAge = ref('');
+  const children = ref([]);
   
-  
+  function changeCompleted (task) {
+    console.log(task.completed);
+    task.completed = !task.completed
+  } 
+  const addInputs = () => {
+    if (newAge > 18) {
+      people.value.push({name: newName.value, age: newAge.value})
+    } else {
+      children.value.push({name: newName.value, age: newAge.value})
+    }
+    
+
+    // opdracht 6, Vue; stappenplan, computed met .filter()
+    // children.value = people.value.filter((person) => person.age <= 18 )
+    // people.value = people.value.filter((person) => person.age > 18)
+    console.log("children: ", children)
+    newName.value = newAge.value = '';
+  }
 </script>
 
 <template>
@@ -30,7 +51,23 @@
       <th class="red" colspan="3">Totaal</th>
       <td style="border:2px solid;">{{ total.toFixed(2) }}</td>
     </tr>
-  </table>
+  </table><br>
+  <ul>
+    <li v-for="task in tasks">
+      <a :style="{ color: task.completed ? 'green' : 'red' }" @click="changeCompleted(task)">
+      {{ task.name }} is {{ task.completed ? 'gedaan' : 'nog niet gedaan' }}
+      </a>
+    </li>
+  </ul>
+  <h3>People</h3>
+  <p v-for="(person, index) in people" :key="index">This is {{ person.name }}, {{ person.age }} years old</p>
+  <h3>children</h3>
+  <p v-for="(child, index) in children" :key="index">This is {{ child.name }}, {{ child.age }} years old</p>
+  <form>
+    <input v-model="newName" placeholder="Naam" required>
+    <input v-model="newAge" placeholder="Leeftijd" required/>
+    <button @click.prevent="addInputs()">Add person</button>
+  </form>
 </template>
 
 <style>
