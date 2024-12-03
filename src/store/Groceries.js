@@ -35,6 +35,7 @@ export const tasks = ref([
   { name: 'Ontbijten', completed:true},
   { name: 'Douchen', completed:false},
   { name: 'Op tijd zijn bij Script', completed:true},
+  { name: 'Sporten', completed:true},
 ])
 
 export const people = ref([

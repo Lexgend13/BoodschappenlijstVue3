@@ -11,24 +11,28 @@
   const newName = ref('');
   const newAge = ref('');
   const children = ref([]);
+  var errorMessage = ref('');
   
   function changeCompleted (task) {
     console.log(task.completed);
     task.completed = !task.completed
   } 
   const addInputs = () => {
-    if (newAge > 18) {
-      people.value.push({name: newName.value, age: newAge.value})
+    if (newName.value == '' || newAge.value == '') {
+      errorMessage.value = "(at least) one of the input fields is empty"
     } else {
-      children.value.push({name: newName.value, age: newAge.value})
+      if (newAge.value > 17) {
+      people.value.push({name: newName.value, age: newAge.value})
+      } else {
+        children.value.push({name: newName.value, age: newAge.value})
+      }
+      // opdracht 6, Vue; stappenplan, computed met .filter()
+      // children.value = people.value.filter((person) => person.age < 18 )
+      // people.value = people.value.filter((person) => person.age >= 18)
+      console.log("children: ", children)
+      newName.value = newAge.value = '';
+      errorMessage.value = '';
     }
-    
-
-    // opdracht 6, Vue; stappenplan, computed met .filter()
-    // children.value = people.value.filter((person) => person.age <= 18 )
-    // people.value = people.value.filter((person) => person.age > 18)
-    console.log("children: ", children)
-    newName.value = newAge.value = '';
   }
 </script>
 
@@ -61,13 +65,15 @@
   </ul>
   <h3>People</h3>
   <p v-for="(person, index) in people" :key="index">This is {{ person.name }}, {{ person.age }} years old</p>
-  <h3>children</h3>
+  <h3>Children</h3>
   <p v-for="(child, index) in children" :key="index">This is {{ child.name }}, {{ child.age }} years old</p>
   <form>
     <input v-model="newName" placeholder="Naam" required>
     <input v-model="newAge" placeholder="Leeftijd" required/>
     <button @click.prevent="addInputs()">Add person</button>
+    <p v-if="errorMessage.length > 0" class="red">{{ errorMessage }}</p>
   </form>
+  <!-- <p v-if="errorMessage" class="red">{{ errorMessage }}</p> -->
 </template>
 
 <style>
