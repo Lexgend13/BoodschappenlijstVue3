@@ -73,7 +73,6 @@
     <button @click.prevent="addInputs()">Add person</button>
     <p v-if="errorMessage.length > 0" class="red">{{ errorMessage }}</p>
   </form>
-  <!-- <p v-if="errorMessage" class="red">{{ errorMessage }}</p> -->
 </template>
 
 <style>
