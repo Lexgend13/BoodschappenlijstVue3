@@ -11,8 +11,8 @@ import { RouterLink } from 'vue-router';
   <nav>
     <RouterLink to="/">Home</RouterLink><br>
     <RouterLink to="/groceries/create">Groceries</RouterLink><br>
-    <RouterLink to="/parent">Parent</RouterLink><br>
-    <RouterLink to="/child">Child</RouterLink>
+    <RouterLink to="/defmodel">Defmodel</RouterLink><br>
+    <RouterLink to="defprops-emit">Def Props Emit</RouterLink>
   </nav>
   <main>
     <RouterView />
